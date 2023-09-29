@@ -3,6 +3,7 @@ describe('Cadastro', () => {
     it('Usuario deve se tornar um Entregador', () => {
         cy.viewport(1440, 900)
         cy.visit('https://buger-eats.vercel.app')
+
         cy.get('a[href="/deliver"]').click()
         cy.get('#page-deliver form h1').should('have.text', 'Cadastre-se para  fazer entregas')
 
@@ -18,7 +19,8 @@ describe('Cadastro', () => {
                 complemento: 'Ap 142',
                 bairro: 'Itaim Bibi',
                 cidade_uf: 'São Paulo/SP'
-            }
+            },
+            entregador:'mike2.jpg'
         }
         cy.get('input[name="name"]').type(delivery.name)
         cy.get('input[name="cpf"]').type(delivery.cpf)
@@ -35,6 +37,10 @@ describe('Cadastro', () => {
         cy.get('input[name="address"]').should('have.value', delivery.endereco.rua)
         cy.get('input[name="district"]').should('have.value', delivery.endereco.bairro)
         cy.get('input[name="city-uf"]').should('have.value', delivery.endereco.cidade_uf)
+
+        cy.get('input[accept^="image"]').attachFile('/images/' + delivery.entregador)
+
+        
     });
 
 });
